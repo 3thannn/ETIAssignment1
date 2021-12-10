@@ -57,6 +57,11 @@ Below are the steps needed to get GOGO GOJEK running on your own system!
 
 Please ensure that GOLANG and MYSQL is installed on your system, and is fully operational
 
+Please do also ensure that your SQL user login is as such:
+ ```sh
+    Username: user
+    Password: password
+ ```
 ### Installation
 
 1. Clone the repo
