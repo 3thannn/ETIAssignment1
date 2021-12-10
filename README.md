@@ -45,17 +45,51 @@ GOGO Gojek is a simple ride hailing platform made with simple HTML, JS, JQUERY, 
 
 
 
+### Assignment Objectives: 
+•	To demonstrate ability to develop REST APIs
+•	To make conscientious consideration in designing microservices
 
+### Assignment Requirements: 
+- [x] Minimum 2 microservices using Go
+- [x]	Persistent storage of information using database, e.g. MySQL
 
+### Bonus Marks: 
+- [x] Implement a web frontend that calls your microservices, instead of a console application. You can implement the frontend with any language and design of your choice.
+
+### Microservice Architecture: 
+
+There are a total of 3 Microservices used in this application, along with the use of monolith frontend.
+
+1. **Passenger**<br />
+  Functions consists of:
+    - Create Passenger
+    - Update Driver
+    - Create Trip 
+      - Calls Trip Microservice
+2. **Driver**<br />
+  Functions consists of:
+    - Create Driver
+    - Update Driver
+    - Start Trip
+      - Calls Trip Microservice
+   - End Trip
+      - Calls Trip Microservice
+3. **Trip**<br />
+  Functions consists of:
+    - Create Trip (Passenger Creates Trip) 
+      - Calls Passenger & Driver Mircoservice to run validation
+    - Get All Passenger Trips
+    - Start Trip (Driver Starts Trip)
+    - End Trip (Driver Ends Trip)
 <!-- GETTING STARTED -->
-## Getting Started
+### Getting Started
 Below are the steps needed to get GOGO GOJEK running on your own system!
 
-### Prerequisites
+### Prerequisites<br />
 
-Please ensure that GOLANG and MYSQL is installed on your system, and is fully operational
+  Please ensure that GOLANG and MYSQL is installed on your system, and is fully operational
 
-Please do also ensure that your SQL user login is as such:
+  Please do also ensure that your SQL user login is as such:
  ```sh
     Username: user
     Password: password
