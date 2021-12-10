@@ -1,0 +1,144 @@
+<html>
+    <head>
+        <title>Passenger Login</title>
+        <meta charset="UTF-8">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        
+    </head>
+    <body>
+        <div class='container pt-5'>
+            <div id="Login">
+                <h1>Passenger Login</h1>
+                 <form id="passengerLogin" onsubmit="return getPassengerEmail(this);">
+                    <div class="form-group pt-3">
+                        <label for="email">Email Address</label>
+                        <input type="email" class="form-control" name="EmailAddress" id="emailAddr" placeholder="Enter Email Address">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a class="btn btn-danger" style="color:white;" onclick="window.location.href='../Main/index.html'">Back</a>
+                </form>
+            </div>
+            <div id="passengerdiv" style="display: none;">
+                <div class="row">
+                    <div class="col-10">
+                        <h3 id="welcometext"></h3>
+                        <p id="intrip" style="font-weight: bold; font-size:20px;"></p>
+                        <br>
+                        <a class="btn btn-success" style="color: white;" onclick="window.location.href='../Passenger/createtrip.html'">New Trip</a> &nbsp;<a class="btn btn-info" style="color: white;" onclick="window.location.href='../Passenger/update.html'">Update Details</a>
+                        <br>
+                        <br>
+                        <p style="font-weight: bold;">Your Trips:</p>
+                        <div id="persontrips"></div>
+                        <div id="errormessage"></div>
+                    </div>
+                </div>
+                <button class="btn btn-danger" onclick="hideanddisplaydivs()">Logout</button>
+            </div>
+        </div>
+    </body>
+    <script>
+        var Passenger;
+        function getPassengerEmail(form) {
+            event.preventDefault();
+            const data = new FormData(form);
+            const jsonString = JSON.stringify(Object.fromEntries(data));
+            const obj = JSON.parse(jsonString);
+            getPassenger(obj.EmailAddress);
+          }
+          function getPassenger(emailAddr){
+            baseurl = "http://localhost:5001/api/passenger/";
+            fullurl = baseurl + emailAddr;
+            $.ajax({
+                type: "GET",
+                url: fullurl,
+                success: function (response, textStatus) {
+                    var Passenger = JSON.parse(response);
+                    localStorage.setItem("passengerJson", response);
+                    localStorage.setItem("PassengerID", Passenger.PassengerID);
+                    initDisplay(Passenger);
+                    getPassengerTrips(Passenger.PassengerID);
+                    console.log(Passenger);
+                    hideanddisplaydivs();
+                },
+                error: function (textStatus, errorThrown, response) {
+                    alert("No Passenger Found!")
+                }
+            });
+          }
+          function getPassengerTrips(passengerID){
+            baseurl = "http://localhost:5001/api/passenger/trips/";
+            fullurl = baseurl + passengerID;
+            $.ajax({
+                type: "GET",
+                url: fullurl,
+                success: function (response, textStatus) {
+                    console.log(response);
+                    var trips = JSON.parse(response);
+                    console.log(trips == null);
+                    loadPassengerTrips(trips);
+                },
+                error: function (textStatus, errorThrown, response) {
+                    console.log(response);
+                }
+            });
+          }
+        function loadPassengerTrips(trips){
+            var tabletop = `<table class='table'>
+                                    <tr>
+                                        <th>Trip ID</th><th>Passenger ID</th><th>Driver ID</th><th>Pickup</th><th>Dropoff</th><th>Pickuptime</th><th>Dropofftime</th><th>Carlicenseno</th><th>Status</th>
+                                    </tr>`;
+            var tablebottom = "</table>"; 
+            if (trips != null){
+                var tablebody = "";
+                for(i = 0; i< trips.length; i++){
+                    tablebody += "<tr><td>"+trips[i].TripID+"</td><td>"+trips[i].PassengerID+"</td><td>"+trips[i].DriverID+"</td><td>"+trips[i].Pickup+"</td><td>"+trips[i].Dropoff+"</td><td>"+trips[i].Pickuptime+"</td><td>"+trips[i].Dropofftime+"</td><td>"+trips[i].Carlicenseno+"</td><td>"+trips[i].Status+"</td></tr>";  
+                         
+                }
+            }
+         
+            if (trips == null){
+                document.getElementById("errormessage").innerHTML = "<h3 style='padding:.75rem; color:red;'>Could not find any Trips!</h3>";
+                var table = tabletop + tablebottom;
+            }else{
+                var table = tabletop + tablebody + tablebottom;           
+            }
+            document.getElementById("persontrips").innerHTML = table;
+           
+         }
+
+          function hideanddisplaydivs(){
+            
+            var x = document.getElementById("Login");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+            var y = document.getElementById("passengerdiv");
+            if (y.style.display === "none") {
+                y.style.display = "block";
+            } else {
+                y.style.display = "none";
+            }
+          }
+          function initDisplay(Passenger){
+            console.log(Passenger);
+            var y = document.getElementById("welcometext");
+            var x = document.getElementById("intrip");
+            y.innerHTML = "Welcome back" + " " + Passenger.Firstname + " " + Passenger.Lastname;
+            if(Passenger.Intrip == true){
+                x.innerHTML="In Trip";
+                x.style.color = "Green";
+            }
+            else{
+                x.innerHTML="Not In Trip";
+                x.style.color = "Red";
+            }
+          }
+        
+    </script>
+</html>

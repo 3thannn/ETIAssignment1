@@ -1,0 +1,193 @@
+<html>
+    <head>
+        <title>Driver Login</title>
+        <meta charset="UTF-8">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        
+    </head>
+    <body>
+        <div class='container pt-5'>
+            <div id="Login">
+                <h1>Driver Login</h1>
+                 <form id="driverLogin" onsubmit="return getDriverEmail(this); this.reset()">
+                    <div class="form-group pt-3">
+                        <label for="email">Email Address</label>
+                        <input type="email" class="form-control" name="EmailAddress" id="emailAddr" placeholder="Enter Email Address">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a class="btn btn-danger" style="color:white;" onclick="window.location.href='../Main/index.html'">Back</a>
+                </form>
+            </div>
+            <div id="driverdiv" style="display: none;">
+                <div class="row">
+                    <div class="col-8">
+                        <h3 id="welcometext"></h3>
+                        <div>
+                            <a class="btn btn-info my-2" style="color: white;" onclick="window.location.href='../Driver/update.html'">Update Details</a>
+                        </div>
+                          
+                        <div class="row">
+                            <div class="col">
+                                <span style="font-weight: bold; font-size:20px; color: black">Driver Status:</span>
+                                <span id="available" style="font-weight: bold; font-size:20px;"></span>
+                            </div>
+                            <div class="col" id="statusinfo">
+                                <span style="font-weight: bold; font-size:20px; color: black">Trip Status:</span>
+                                <span id="status" style="font-weight: bold; font-size:20px;"></span>
+                            </div>
+                        </div>
+                        <br>
+                        
+                        <div id="tripinfo">
+                            <span id="pickuploc" style="font-weight: bold; font-size:20px;"></span><br>
+                            <span id="dropoffloc" style="font-weight: bold; font-size:20px;"></span>
+                        </div>
+                        <br>
+                        <div id="tripbuttons">
+                            <a class="btn btn-success" style="color:white;" id= "startbutton" onclick="startTrip(localStorage.getItem('DriverID'))">Start Trip</a>
+                            <a class="btn btn-danger" style="color:white;" id="endbutton" onclick="endTrip(localStorage.getItem('DriverID'),localStorage.getItem('PassengerID'))">End Trip</a> 
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <button class="btn btn-danger" onclick="hideanddisplaydivs()">Logout</button>
+            </div>
+        </div>
+    </body>
+    <script>
+        var Driver;
+        var Trip;
+        function getDriverEmail(form) {
+            event.preventDefault();
+            const data = new FormData(form);
+            const jsonString = JSON.stringify(Object.fromEntries(data));
+            const obj = JSON.parse(jsonString);
+            getDriver(obj.EmailAddress);
+          }
+          function getDriver(emailAddr){
+            baseurl = "http://localhost:5002/api/driver/login/";
+            fullurl = baseurl + emailAddr;
+            $.ajax({
+                type: "GET",
+                url: fullurl,
+                success: function (response, textStatus) {
+                    var Driver = JSON.parse(response);
+                    localStorage.setItem("DriverID", Driver.DriverID);
+                    localStorage.setItem("DriverJson", response);
+                    console.log(response);
+                    console.log(localStorage.getItem("DriverJson"));
+                    console.log(Driver);
+                    getCurrentTrip(Driver);
+                    hideanddisplaydivs();
+                },
+                error: function (textStatus, errorThrown, response) {
+                    alert("No Driver Found!");
+                }
+            });
+          }
+          function getCurrentTrip(Driver){
+            console.log("THIS IS RUNNING IN GET CURRENT TRIP");
+            var Trip;
+            baseurl = "http://localhost:5003/api/trip/gettrip/";
+            fullurl = baseurl + Driver.DriverID;
+            $.ajax({
+                type: "GET",
+                url: fullurl,
+                success: function (response, textStatus) {
+                    console.log("THIS IS RUNNING IN GET CURRENT TRIP SUCCESS");
+                    var Trip = JSON.parse(response);
+                    localStorage.setItem("PassengerID", Trip.PassengerID);
+                    console.log(Trip);
+                    initDisplay(Driver, Trip)
+                },
+                error: function (textStatus, errorThrown, response) {
+
+                }
+            });
+            return Trip;
+          }
+          function startTrip(driverID){
+            $.ajax({
+            type: "POST",
+            url: "http://localhost:5003/api/trip/start/" + driverID ,
+            contentType: "application/json",
+            success: function (response, textStatus) {
+                console.log(response);
+                alert("Trip Started!, Please Refresh page to view trip info!");
+                //do some success handling here
+            },
+            error: function (textStatus, errorThrown) {
+                //do some error handing here
+            }
+            });
+          }
+          function endTrip(driverID,passengerID){
+            $.ajax({
+            type: "POST",
+            url: "http://localhost:5003/api/trip/end/" + driverID  + "/" + passengerID,
+            contentType: "application/json",
+            success: function (response, textStatus) {
+                console.log(response);
+                alert("Trip Ended! Please Refresh Page!");
+                //do some success handling here
+            },
+            error: function (textStatus, errorThrown) {
+                //do some error handing here
+            }
+        });
+          }
+          function hideanddisplaydivs(){
+            var x = document.getElementById("Login");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+            var y = document.getElementById("driverdiv");
+            if (y.style.display === "none") {
+                y.style.display = "block";
+            } else {
+                y.style.display = "none";
+            }
+          }
+          function initDisplay(Driver, Trip){
+            console.log(Trip.Status == "On The Way");
+            var y = document.getElementById("welcometext");
+            var x = document.getElementById("available");
+            var status = document.getElementById("status");
+            var statusinfo = document.getElementById("statusinfo");
+            var sb = document.getElementById("startbutton");
+            var eb = document.getElementById("endbutton");
+            var tb = document.getElementById("tripbuttons");
+            var pickup = document.getElementById("pickuploc");
+            var dropoff = document.getElementById("dropoffloc");
+            y.innerHTML = "Welcome back" + " " + Driver.Firstname + " " + Driver.Lastname;
+
+            if(Driver.Availability == 0){
+                x.innerHTML="In Trip";
+                status.innerHTML=Trip.Status;
+                status.style.color = "blue";
+                x.style.color = "Green";
+                if(Trip.Status == "In Transit"){
+                    sb.style.display = "none";    
+                }
+                else if(Trip.Status == "On The Way"){
+                    eb.style.display = "none";
+                }
+                pickup.innerHTML="Pickup: " + Trip.Pickup;
+                dropoff.innerHTML="Dropoff: " + Trip.Dropoff;
+            }
+            else{
+                tb.style.display = "none";
+                statusinfo.style.display = "none";
+                x.innerHTML="Waiting for trip";
+                x.style.color = "Red";
+            }
+          }
+        
+    </script>
+</html>

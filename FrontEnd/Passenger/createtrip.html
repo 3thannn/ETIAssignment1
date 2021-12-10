@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <title>Create New Trip</title>
+        <meta charset="UTF-8">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        
+    </head>
+    <body>
+        <div class='container pt-5'>
+            <h1>Create New Trip</h1>
+            <form id="tripForm" onsubmit="return tripData(this);">
+                <div class="form-group">
+                  <label for="pickup">Pickup</label>
+                  <input type="number" class="form-control" name="Pickup" id="pickup" placeholder="Enter Pickup Location Postal Code">
+                </div>
+                <div class="form-group">
+                    <label for="dropOff">Dropoff</label>
+                    <input type="number" class="form-control" name="Dropoff" id="dropoff" placeholder="Enter Dropoff Location Postal Code">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a class="btn btn-danger" style="color:white;" onclick="window.location.href='../Passenger/login.html'">Back</a>
+              </form>
+              
+        </div>
+    </body>
+    <script>
+        
+        function tripData(form) {
+            event.preventDefault();
+            const data = new FormData(form);
+            console.log(data);
+            const jsonString1 = JSON.stringify(Object.fromEntries(data));
+            const obj = JSON.parse(jsonString1);
+            obj.PassengerID = parseInt(localStorage.getItem("PassengerID"));
+            obj.Pickup = parseInt(obj.Pickup);
+            obj.Dropoff = parseInt(obj.Dropoff);
+            const jsonString2 = JSON.stringify(obj);
+            console.log(jsonString2);
+            createTrip(jsonString2, "http://localhost:5003/api/trip/create")
+        }
+        function createTrip(jsonString, urlString) {
+            $.ajax({
+                type: "POST",
+                url: urlString,
+                data: jsonString,
+                contentType: "application/json",
+                success: function (response, textStatus) {
+                    alert("Successfully Created New Trip!");
+                    document.getElementById("tripForm").reset();
+                },
+                error: function (textStatus, errorThrown) {
+                    alert("Error:" + textStatus.responseText);
+                }
+            });
+        }
+        
+    </script>
+</html>
