@@ -36,8 +36,6 @@ GOGO Gojek is a simple ride hailing platform made with simple HTML, JS, JQUERY, 
 
 ### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
 * [GOLANG](https://go.dev/)
 * [HTML](https://html.com/)
 * [JavaScript](https://reactjs.org/)
