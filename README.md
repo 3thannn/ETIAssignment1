@@ -113,7 +113,7 @@ GOGO Gojek is a simple ride hailing platform made with simple HTML, JS, JQUERY, 
 
 **Project Architecture**
 
-![microservice-diagran][microservice-diagram]
+![Microservice_Diagran][microservice-diagram]
 ---
 
 There are a total of 3 Microservices used in this application, along with the use of monolith frontend.
@@ -224,6 +224,6 @@ My Email - [School Email](mailto:s10185214@connect.np.edu.sg)
 [driver-loggedintrip]: ./Images/DriverLogin_InTrip.PNG
 [driver-loggedinnotrip]: ./Images/DriverLogin_NoTrip.PNG
 [update-driver]: ./Images/Update_Driver.PNG
-[microservice-diagram]: ./Images/Microservice_Diagram.PNG
+[microservice-diagram]: ./Images/Microservice_Diagram.png
 
 
