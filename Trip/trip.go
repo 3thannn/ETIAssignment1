@@ -64,7 +64,6 @@ func getdrivertrip(db *sql.DB, driverID string) Trip {
 //http function to handle get requests for the current trip that the driver is in
 func getDriverCurrentTrip(w http.ResponseWriter, r *http.Request) {
 	db, err := sql.Open("mysql", "user:password@tcp(127.0.0.1:3306)/ETIAssignment1")
-	println(err)
 	if err != nil {
 		panic(err.Error())
 	} else {
@@ -96,14 +95,12 @@ func gettrips(db *sql.DB, passengerID string) []Trip {
 		results.Scan(&trip.TripID, &trip.DriverID, &trip.PassengerID, &trip.Pickup, &trip.Dropoff, &trip.Pickuptime, &trip.Dropofftime, &trip.Carlicenseno, &trip.Status)
 		trips = append(trips, trip)
 	}
-	fmt.Println(trips)
 	return trips
 }
 
 //http function to handle get requests for retrieving passenger trips
 func getpassengertrips(w http.ResponseWriter, r *http.Request) {
 	db, err := sql.Open("mysql", "user:password@tcp(127.0.0.1:3306)/ETIAssignment1")
-	println(err)
 	if err != nil {
 		panic(err.Error())
 	} else {
@@ -164,11 +161,10 @@ func checkpassenger(passengerID int) bool {
 func updateDriver(driverID int) {
 	url := fmt.Sprintf("http://localhost:5002/api/driver/update/%d", driverID)
 	response, err := http.Post(url, "application/json", nil)
+
 	if err != nil {
 		panic(err.Error())
 	} else {
-		data, _ := ioutil.ReadAll(response.Body)
-		fmt.Println(string(data))
 		response.Body.Close()
 	}
 }
@@ -178,8 +174,6 @@ func updatePassenger(passengerID int) {
 	url := fmt.Sprintf("http://localhost:5001/api/passenger/%d", passengerID)
 	response, err := http.Post(url, "application/json", nil)
 	if err != nil {
-		data, _ := ioutil.ReadAll(response.Body)
-		fmt.Println(string(data))
 		response.Body.Close()
 	}
 }
@@ -189,16 +183,12 @@ func getAvailableDriver() Driver {
 	fmt.Println("code ran here in trip")
 	url := "http://localhost:5002/api/driver"
 	response, err := http.Get(url)
-	fmt.Println(response)
 	var tripDriver Driver
 	if err != nil {
 		fmt.Printf("The HTTP request failed with error %s\n", err)
 	} else {
 		if response.StatusCode == http.StatusCreated {
 			data, _ := ioutil.ReadAll(response.Body)
-			fmt.Println(string(data))
-			fmt.Println("code ran here")
-			fmt.Println(response.StatusCode)
 			response.Body.Close()
 			json.Unmarshal(data, &tripDriver)
 		} else {
@@ -264,7 +254,7 @@ func startTrip(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	driverID := params["driverid"]
 	if r.Header.Get("Content-type") == "application/json" {
-		if r.Method == "POST" {
+		if r.Method == "PUT" {
 			_, err := ioutil.ReadAll(r.Body)
 			if err == nil {
 				startTripDB(db, driverID)
@@ -287,7 +277,7 @@ func endTrip(w http.ResponseWriter, r *http.Request) {
 	driverID := params["driverid"]
 	passengerID := params["passengerid"]
 	if r.Header.Get("Content-type") == "application/json" {
-		if r.Method == "POST" {
+		if r.Method == "PUT" {
 			_, err := ioutil.ReadAll(r.Body)
 			if err == nil {
 				endTripDB(db, driverID)
@@ -362,9 +352,9 @@ func main() {
 	//get driver current trip
 	router.HandleFunc("/api/trip/gettrip/{driverid}", getDriverCurrentTrip).Methods("GET")
 	//start current trip with driver id supplied
-	router.HandleFunc("/api/trip/start/{driverid}", startTrip).Methods("POST")
+	router.HandleFunc("/api/trip/start/{driverid}", startTrip).Methods("PUT")
 	//end current trip with both driver & passenger id supplied
-	router.HandleFunc("/api/trip/end/{driverid}/{passengerid}", endTrip).Methods("POST")
+	router.HandleFunc("/api/trip/end/{driverid}/{passengerid}", endTrip).Methods("PUT")
 	//get all passenger trips with passengerid supplied
 	router.HandleFunc("/api/trip/getpassengertrips/{passengerid}", getpassengertrips).Methods("GET")
 	//create new trip

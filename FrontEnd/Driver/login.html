@@ -112,7 +112,7 @@
           }
           function startTrip(driverID){
             $.ajax({
-            type: "POST",
+            type: "PUT",
             url: "http://localhost:5003/api/trip/start/" + driverID ,
             contentType: "application/json",
             success: function (response, textStatus) {
@@ -127,7 +127,7 @@
           }
           function endTrip(driverID,passengerID){
             $.ajax({
-            type: "POST",
+            type: "PUT",
             url: "http://localhost:5003/api/trip/end/" + driverID  + "/" + passengerID,
             contentType: "application/json",
             success: function (response, textStatus) {

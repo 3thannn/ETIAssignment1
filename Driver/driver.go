@@ -298,7 +298,7 @@ func driver(w http.ResponseWriter, r *http.Request) {
 }
 
 //http function for post request, update driver's availablity
-func updateDriver(w http.ResponseWriter, r *http.Request) {
+func updateDriverAvailibility(w http.ResponseWriter, r *http.Request) {
 	// Use mysql as driverName and a valid DSN as dataSourceName:
 	db, err := sql.Open("mysql", "user:password@tcp(127.0.0.1:3306)/ETIAssignment1")
 
@@ -311,15 +311,13 @@ func updateDriver(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	if r.Header.Get("Content-type") == "application/json" {
-		if r.Method == "POST" {
+		if r.Method == "PUT" {
 			params := mux.Vars(r)
 			driverID := params["driverid"]
-
-			if r.Method == "POST" {
-				if err == nil {
-					updateAvailablility(db, driverID)
-				}
+			if err == nil {
+				updateAvailablility(db, driverID)
 			}
+
 		}
 	}
 }
@@ -337,7 +335,7 @@ func main() {
 	//handle put for driver details update
 	router.HandleFunc("/api/driver", driver).Methods("GET", "POST", "PUT")
 	//handle post request for updating driver availability
-	router.HandleFunc("/api/driver/update/{driverid}", updateDriver).Methods("POST")
+	router.HandleFunc("/api/driver/update/{driverid}", updateDriverAvailibility).Methods("PUT")
 	fmt.Println("Listening at port 5002")
 	log.Fatal(http.ListenAndServe(":5002", handlers.CORS(headers, origins, methods)(router)))
 }
