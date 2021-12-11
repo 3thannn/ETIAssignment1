@@ -218,7 +218,7 @@ My Email - [School Email](mailto:s10185214@connect.np.edu.sg)
 [create-passenger]: ./Images/Create_Passenger.PNG
 [passenger-login]: ./Images/Passenger_Login.PNG
 [passenger-loggedin]: ./Images/Passenger_LoggedIn.PNG
-[create-trip]: ./Images/Create_NewTrip
+[create-trip]: ./Images/Create_NewTrip.PNG
 [update-passenger]: ./Images/Update_Passenger.PNG
 [driver-login]: ./Images/Driver_Login.PNG
 [driver-loggedintrip]: ./Images/DriverLogin_InTrip.PNG
