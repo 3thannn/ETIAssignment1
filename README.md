@@ -204,9 +204,9 @@ My Email - [School Email](mailto:s10185214@connect.np.edu.sg)
 [passenger-loggedin]: ./Images/Passenger_LoggedIn.PNG
 [update-passenger]: ./Images/Update_Passenger.PNG
 [driver-login]: ./Images/Driver_Login.PNG
-[driver-loggedintrip]: ./Images/Driver_Loginin_InTrip.PNG
-[driver-loggedinnotrip]: ./Images/Driver_Loginin_NoTrip.PNG
+[driver-loggedintrip]: ./Images/Driver_Login_InTrip.PNG
+[driver-loggedinnotrip]: ./Images/Driver_Login_NoTrip.PNG
 [update-driver]: ./Images/Update_Driver.PNG
-[microservice-diagram]: ./Images/MicroService_Diagram.PNG
+[microservice-diagram]: ./Images/Microservice_Diagram.PNG
 
 
