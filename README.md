@@ -27,12 +27,50 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Hello There!
-Welcome to GOGO Gojek's README page.
+**Hello There! Welcome to GOGO Gojek's README page.**
 
 GOGO Gojek is a simple ride hailing platform made with simple HTML, JS, JQUERY, SQL and GOLANG
 
+## Screenshots
+**Main Landing Page**
+![LandingPage_Screenshot][home-page]
+---
 
+**Create Passenger Account**
+![Create_Passenger_ScreenShot][create-passenger]
+---
+
+**Create Driver Account**
+![Create_Driver_ScreenShot][create-driver]
+---
+
+**Passenger Login Page**
+![Passenger_Login_Screenshot][passenger-login]
+---
+
+**Passenger Logged In Page**
+![Passenger_Loggedin_Screenshot][passenger-loggedin]
+---
+
+**Update Passenger Page**
+![Update_Passenger_Screenshot][update-passenger]
+---
+
+**Driver Login Page**
+![Driver_Login_Screenshot][driver-login]
+---
+
+**Driver Logged In Page (In Trip)**
+![Driver_Loggedin_No_Trip_Screenshot][Driver-loggedinnotrip]
+---
+
+**Driver Logged In Page (In Trip)**
+![Driver_Loggedin_In_Trip_Screenshot][Driver-loggedintrip]
+---
+
+**Update Driver Page**
+![Update_Driver_Screenshot][update-driver]
+---
 
 ### Built With
 
@@ -42,7 +80,6 @@ GOGO Gojek is a simple ride hailing platform made with simple HTML, JS, JQUERY, 
 * [Bootstrap](https://getbootstrap.com)
 * [JQuery](https://jquery.com)
 * [MYSQL](https://www.mysql.com/)
-
 
 
 ### Assignment Objectives: 
@@ -57,6 +94,11 @@ GOGO Gojek is a simple ride hailing platform made with simple HTML, JS, JQUERY, 
 - [x] Implement a web frontend that calls your microservices, instead of a console application. You can implement the frontend with any language and design of your choice.
 
 ### Microservice Architecture: 
+
+
+**Project Architecture**
+![Microservice Diagran][microservice-diagram]
+---
 
 There are a total of 3 Microservices used in this application, along with the use of monolith frontend.
 
@@ -152,4 +194,18 @@ To start the platform, please follow the following steps:
 My Email - [School Email](mailto:s10185214@connect.np.edu.sg) 
 
 <p align="left">(<a href="#top">back to top</a>)</p>
+
+<!-- MARKDOWN LINKS & IMAGES -->
+[home-page]: ./images/Home_Page.PNG
+[create-driver]: ./images/Create_Driver.PNG
+[create-passenger]: ./images/Create_Passenger.PNG
+[passenger-login]: ./images/Passenger_Login.PNG
+[passenger-loggedin]: ./images/Passenger_LoggedIn.PNG
+[update-passenger]: ./images/Update_Passenger.PNG
+[driver-login]: ./images/Driver_Login.PNG
+[driver-loggedintrip]: ./images/Driver_Loginin_InTrip.PNG
+[driver-loggedinnotrip]: ./images/Driver_Loginin_NoTrip.PNG
+[update-driver]: ./images/Update_Driver.PNG
+[microservice-diagram]: ./images/MicroService_Diagram.PNG
+
 
