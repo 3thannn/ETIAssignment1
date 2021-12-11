@@ -33,42 +33,52 @@ GOGO Gojek is a simple ride hailing platform made with simple HTML, JS, JQUERY, 
 
 ## Screenshots
 **Main Landing Page**
+
 ![LandingPage_Screenshot][home-page]
 ---
 
 **Create Passenger Account**
+
 ![Create_Passenger_ScreenShot][create-passenger]
 ---
 
 **Create Driver Account**
+
 ![Create_Driver_ScreenShot][create-driver]
 ---
 
 **Passenger Login Page**
+
 ![Passenger_Login_Screenshot][passenger-login]
 ---
 
 **Passenger Logged In Page**
+
 ![Passenger_Loggedin_Screenshot][passenger-loggedin]
 ---
 
 **Update Passenger Page**
+
 ![Update_Passenger_Screenshot][update-passenger]
 ---
 
 **Driver Login Page**
+
 ![Driver_Login_Screenshot][driver-login]
 ---
 
 **Driver Logged In Page (In Trip)**
+
 ![Driver_Loggedin_No_Trip_Screenshot][Driver-loggedinnotrip]
 ---
 
 **Driver Logged In Page (In Trip)**
+
 ![Driver_Loggedin_In_Trip_Screenshot][Driver-loggedintrip]
 ---
 
 **Update Driver Page**
+
 ![Update_Driver_Screenshot][update-driver]
 ---
 
@@ -97,7 +107,8 @@ GOGO Gojek is a simple ride hailing platform made with simple HTML, JS, JQUERY, 
 
 
 **Project Architecture**
-![Microservice Diagran][microservice-diagram]
+
+![microservice-diagran][microservice-diagram]
 ---
 
 There are a total of 3 Microservices used in this application, along with the use of monolith frontend.
@@ -204,8 +215,8 @@ My Email - [School Email](mailto:s10185214@connect.np.edu.sg)
 [passenger-loggedin]: ./Images/Passenger_LoggedIn.PNG
 [update-passenger]: ./Images/Update_Passenger.PNG
 [driver-login]: ./Images/Driver_Login.PNG
-[driver-loggedintrip]: ./Images/Driver_Login_InTrip.PNG
-[driver-loggedinnotrip]: ./Images/Driver_Login_NoTrip.PNG
+[driver-loggedintrip]: ./Images/DriverLogin_InTrip.PNG
+[driver-loggedinnotrip]: ./Images/DriverLogin_NoTrip.PNG
 [update-driver]: ./Images/Update_Driver.PNG
 [microservice-diagram]: ./Images/Microservice_Diagram.PNG
 
