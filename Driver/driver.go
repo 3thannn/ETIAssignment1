@@ -311,7 +311,7 @@ func updateDriverAvailibility(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	if r.Header.Get("Content-type") == "application/json" {
-		if r.Method == "PUT" {
+		if r.Method == "POST" {
 			params := mux.Vars(r)
 			driverID := params["driverid"]
 			if err == nil {
@@ -335,7 +335,7 @@ func main() {
 	//handle put for driver details update
 	router.HandleFunc("/api/driver", driver).Methods("GET", "POST", "PUT")
 	//handle post request for updating driver availability
-	router.HandleFunc("/api/driver/update/{driverid}", updateDriverAvailibility).Methods("PUT")
+	router.HandleFunc("/api/driver/update/{driverid}", updateDriverAvailibility).Methods("POST")
 	fmt.Println("Listening at port 5002")
 	log.Fatal(http.ListenAndServe(":5002", handlers.CORS(headers, origins, methods)(router)))
 }
