@@ -57,6 +57,11 @@ GOGO Gojek is a simple ride hailing platform made with simple HTML, JS, JQUERY, 
 ![Passenger_Loggedin_Screenshot][passenger-loggedin]
 ---
 
+**Create New Trip**
+
+![Create_New_Trip][create-trip]
+---
+
 **Update Passenger Page**
 
 ![Update_Passenger_Screenshot][update-passenger]
@@ -213,6 +218,7 @@ My Email - [School Email](mailto:s10185214@connect.np.edu.sg)
 [create-passenger]: ./Images/Create_Passenger.PNG
 [passenger-login]: ./Images/Passenger_Login.PNG
 [passenger-loggedin]: ./Images/Passenger_LoggedIn.PNG
+[create-trip]: ./Images/Create_NewTrip
 [update-passenger]: ./Images/Update_Passenger.PNG
 [driver-login]: ./Images/Driver_Login.PNG
 [driver-loggedintrip]: ./Images/DriverLogin_InTrip.PNG
