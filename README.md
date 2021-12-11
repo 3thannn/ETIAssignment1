@@ -196,16 +196,17 @@ My Email - [School Email](mailto:s10185214@connect.np.edu.sg)
 <p align="left">(<a href="#top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
-[home-page]: ./images/Home_Page.PNG
-[create-driver]: ./images/Create_Driver.PNG
-[create-passenger]: ./images/Create_Passenger.PNG
-[passenger-login]: ./images/Passenger_Login.PNG
-[passenger-loggedin]: ./images/Passenger_LoggedIn.PNG
-[update-passenger]: ./images/Update_Passenger.PNG
-[driver-login]: ./images/Driver_Login.PNG
-[driver-loggedintrip]: ./images/Driver_Loginin_InTrip.PNG
-[driver-loggedinnotrip]: ./images/Driver_Loginin_NoTrip.PNG
-[update-driver]: ./images/Update_Driver.PNG
-[microservice-diagram]: ./images/MicroService_Diagram.PNG
+
+[home-page]: ./Images/Home_Page.PNG
+[create-driver]: ./Images/Create_Driver.PNG
+[create-passenger]: ./Images/Create_Passenger.PNG
+[passenger-login]: ./Images/Passenger_Login.PNG
+[passenger-loggedin]: ./Images/Passenger_LoggedIn.PNG
+[update-passenger]: ./Images/Update_Passenger.PNG
+[driver-login]: ./Images/Driver_Login.PNG
+[driver-loggedintrip]: ./Images/Driver_Loginin_InTrip.PNG
+[driver-loggedinnotrip]: ./Images/Driver_Loginin_NoTrip.PNG
+[update-driver]: ./Images/Update_Driver.PNG
+[microservice-diagram]: ./Images/MicroService_Diagram.PNG
 
 
