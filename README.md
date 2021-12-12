@@ -122,25 +122,29 @@ Once the data has been query'ed out from the database, the data can then be comm
 
 1. **Passenger**<br />
   Functions consists of:
-    - Create Passenger
-    - Update Driver
+    - Create Passenger (POST)
+    - Update Passenger Details (PUT)
     - Create Trip 
-      - Calls Trip Microservice
+      - Calls Trip Microservice (POST)
+    - Get All Trips 
+      - Calls Trip Microservice to get trip data (GET)
+
 2. **Driver**<br />
   Functions consists of:
-    - Create Driver
-    - Update Driver
-    - Start Trip
-      - Calls Trip Microservice
-   - End Trip
-      - Calls Trip Microservice
+    - Create Driver (POST)
+    - Update Driver Details (PUT)
+    - Start Trip (PUT)
+      - Calls Trip Microservice (POST)
+   - End Trip (PUT)
+      - Calls Trip Microservice (POST)
 3. **Trip**<br />
   Functions consists of:
     - Create Trip (Passenger Creates Trip) 
-      - Calls Passenger & Driver Mircoservice to run validation
-    - Get All Passenger Trips
-    - Start Trip (Driver Starts Trip)
-    - End Trip (Driver Ends Trip)
+      - Calls Passenger & Driver Mircoservice to run validation (GET)
+      - Creates Trip (POST)
+    - Get All Passenger Trips (Called by Passenger Microservice)
+    - Start Trip (Driver Starts Trip) (PUT)
+    - End Trip (Driver Ends Trip) (PUT)
 <!-- GETTING STARTED -->
 ### Getting Started
 Below are the steps needed to get GOGO GOJEK running on your own system!
