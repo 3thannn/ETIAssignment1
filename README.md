@@ -117,6 +117,8 @@ GOGO Gojek is a simple ride hailing platform made with simple HTML, JS, JQUERY, 
 ---
 
 There are a total of 3 Microservices used in this application, along with the use of monolith frontend.
+Each Microservice is tied to its own database, which handles the data transfer for each of the respective object classes.
+Once the data has been query'ed out from the database, the data can then be communicated and transfered to and from the different microservices through GET and POST HTTP requests. From there, the logic and data handling can be done within each Microservice respectively as well, all tying back to the loosely coupled ideology that Microservices is known for.
 
 1. **Passenger**<br />
   Functions consists of:
